@@ -1,0 +1,36 @@
+{
+  "name": "express-hreflang-sitemap",
+  "version": "1.2.2",
+  "description": "The simplest way to add a sitemap with hreflang to an express application.",
+  "keywords": [
+    "sitemap",
+    "sitemap xml",
+    "express",
+    "expressjs",
+    "middleware"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oneevil/express-hreflang-sitemap"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "test": "jest",
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "lint": "xo index.js"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.6",
+    "express": "^4.17.1",
+    "jest": "^24.9.0",
+    "node-mocks-http": "^1.7.6",
+    "xo": "^0.24.0"
+  },
+  "xo": {
+    "space": 4
+  }
+}
