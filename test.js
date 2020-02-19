@@ -49,8 +49,7 @@ test('get filled sitemap from request', () => {
         urls: [
             {
                 url: 'https://test.com/',
-                hreflang: 'ru',
-                langurl: 'https://test.com/ru/',
+                hreflang: [{lang: 'ru', url: 'https://test.com/ru/'}],
                 lastmod: '2018-12-08',
                 changefreq: 'daily',
                 priority: 1.0,

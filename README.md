@@ -23,8 +23,7 @@ app.use(sitemap({
     urls: [
         {
             url: 'https://test.com/',
-            hreflang: 'ru',
-            langurl: 'https://test.com/ru/'
+            hreflang: [{lang: 'ru', url: 'https://test.com/ru/'}],
             lastmod: '2020-02-19', // optional
             changefreq: 'daily', // optional
             priority: 1.0, // optional

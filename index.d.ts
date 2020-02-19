@@ -1,9 +1,13 @@
 import { Response, Request } from 'express';
 
+export interface HrefLANG {
+    lang: string;
+    url: string;
+}
+
 export interface SitemapUrl {
     url: string;
-    hreflang?: string;
-    langurl?: string;
+    hreflang?: HrefLANG[];
     lastmod?: string;
     changefreq?: string;
     priority?: number;
