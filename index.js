@@ -28,11 +28,13 @@ const sitemap = options => {
                 let lineHrefLang = '';
                 if ('hreflang' in url) {
                     for (let i = 0; i < url.hreflang.length; i++) {
-                        lineHrefLang += `<xhtml:link rel="alternate" hreflang="${url.hreflang[i].lang}" href="${url.hreflang[i].url}" \/>`;
+                        lineHrefLang += `<xhtml:link rel="alternate" hreflang="${url.hreflang[i].lang}" href="${url.hreflang[i].url}" \/>
+    `;
                     }
                 } else {
                     lineHrefLang = '';
                 }
+                lineHrefLang = lineHrefLang.replace(/\s+$/g, '');
                 const lineLastMod = 'lastmod' in url ? `<lastmod>${url.lastmod}</lastmod>` : '';
                 const lineChangeFreq = 'changefreq' in url && validChangeFreq.indexOf(url.changefreq) !== -1 ? `<changefreq>${url.changefreq}</changefreq>` : '';
                 const linePriority = 'priority' in url && url.priority >= 0 && url.priority <= 1 ? `<priority>${url.priority}</priority>` : '';
