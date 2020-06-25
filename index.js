@@ -43,9 +43,10 @@ const sitemap = options => {
             });
 
             res.send(getXml(xmlUrls));
+        } else {
+            next();
         }
 
-        next();
     };
 };
 
