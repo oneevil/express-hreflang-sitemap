@@ -1,52 +1,44 @@
 'use strict';
 
-const validChangeFreq = [
+const validChangeFreq = new Set([
     'always',
     'hourly',
     'daily',
     'weekly',
     'monthly',
     'yearly',
-    'never'
-];
+    'never',
+]);
 
 const sitemap = options => {
     const sitemapUrl = options && options.sitemapUrl ? options.sitemapUrl : '/sitemap.xml';
     const urls = options && options.urls ? options.urls : [];
 
-    return (req, res, next) => {
-        if (req.url === sitemapUrl) {
-            res.header('Content-Type', 'application/xml');
+    return (request, response, next) => {
+        if (request.url === sitemapUrl) {
+            response.header('Content-Type', 'application/xml');
 
             let xmlUrls = '';
-            urls.forEach(url => {
+            for (const url of urls) {
                 if (!('url' in url) || !url.url) {
-                    return;
+                    continue;
                 }
 
                 const lineUrl = `<loc>${url.url}</loc>`;
-                let lineHrefLang = '';
-                if ('hreflang' in url) {
-                    for (let i = 0; i < url.hreflang.length; i++) {
-                        lineHrefLang += `<xhtml:link rel="alternate" hreflang="${url.hreflang[i].lang}" href="${url.hreflang[i].url}" \/>
-    `;
-                    }
-                } else {
-                    lineHrefLang = '';
-                }
-                lineHrefLang = lineHrefLang.replace(/\s+$/g, '');
+                const lineHrefLang = 'hreflang' in url
+                    ? url.hreflang.map(link => `<xhtml:link rel="alternate" hreflang="${link.lang}" href="${link.url}" />`).join('\n    ')
+                    : '';
                 const lineLastMod = 'lastmod' in url ? `<lastmod>${url.lastmod}</lastmod>` : '';
-                const lineChangeFreq = 'changefreq' in url && validChangeFreq.indexOf(url.changefreq) !== -1 ? `<changefreq>${url.changefreq}</changefreq>` : '';
+                const lineChangeFreq = 'changefreq' in url && validChangeFreq.has(url.changefreq) ? `<changefreq>${url.changefreq}</changefreq>` : '';
                 const linePriority = 'priority' in url && url.priority >= 0 && url.priority <= 1 ? `<priority>${url.priority}</priority>` : '';
 
                 xmlUrls += getUrl(lineUrl, lineHrefLang, lineLastMod, lineChangeFreq, linePriority);
-            });
+            }
 
-            res.send(getXml(xmlUrls));
+            response.send(getXml(xmlUrls));
         } else {
             next();
         }
-
     };
 };
 
@@ -81,13 +73,11 @@ const getUrl = (url, hrefLang, lastMod, changeFreq, priority) => {
     return result;
 };
 
-const getXml = urls => {
-    return `
+const getXml = urls => `
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}
 </urlset>
     `.trim();
-};
 
 module.exports = sitemap;
 

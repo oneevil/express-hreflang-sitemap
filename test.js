@@ -63,8 +63,8 @@ test('get filled sitemap from request', () => {
 `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <url>
-    <loc>https://test,com</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href ="https://test.com/ru/" />
+    <loc>https://test.com</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://test.com/ru/" />
     <lastmod>2018-12-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1</priority>
