@@ -37,6 +37,8 @@
     }
   },
   "resolutions": {
-    "coveralls-next/js-yaml": "^4.3.2"
+    "coveralls-next/js-yaml": "^4.3.2",
+    "katex": "^0.18.2",
+    "**/@istanbuljs/load-nyc-config/js-yaml": "^4.3.2"
   }
 }
